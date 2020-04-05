@@ -1,0 +1,15 @@
+p button  {
+  border: 2px solid black;
+  border-radius: 4px;
+  padding: 5px 10px;
+  background-color: #5ad398;
+  color: rgb(255, 255, 255);
+  &:hover {
+    cursor: pointer;
+  }
+  &:active {
+    padding: 6px 10px 4px 10px;
+    background-color: black;
+    border-color: #142d21;
+  }
+}
