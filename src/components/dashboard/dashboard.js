@@ -2,18 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { ConnectedTaskList } from '../tasklist/tasklist';
 
-function Dashboard ({groups}) {
+function Dashboard({ groups }) {
   return (
-    <div>
+    <div classList='w-50'>
       <h2>Dashboard</h2>
-    {groups.map(group => (
-      <ConnectedTaskList id={group.id} name={group.name}/>
-    ))}
+      {groups.map(group => (
+        <ConnectedTaskList key={group.id} id={group.id} name={group.name} />
+      ))}
     </div>
   )
 }
 
-function mapStateToProps(state){
+function mapStateToProps(state) {
   return {
     groups: state.groups
   }

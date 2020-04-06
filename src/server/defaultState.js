@@ -57,7 +57,7 @@ export const defaultState = {
     },
     {
       name:"Create our first component",
-      id:"T4",
+      id:"T5",
       group:"G3",
       owner:"U2",
       isComplete:false

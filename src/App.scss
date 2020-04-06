@@ -1,6 +1,7 @@
-@import './components/helloworld/helloworld.scss';
+@import './components/dashboard/dashboard.scss';
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
 
-  .App {
+.App {
   text-align: center;
 }
 

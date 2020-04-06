@@ -11,7 +11,7 @@ export default function HelloWorld () {
 
   return (
     <div style={container}>
-      <p>Hello {greeting} version <button onClick={() => setCount(count + 1)}>1.{count}</button></p> 
+      <p>Hello {greeting} version <button className='btn btn-primary' onClick={() => setCount(count + 1)}>1.{count}</button></p> 
       <input type='text' value={greeting} onChange={(e) => setGreeting(e.target.value)}></input>
     </div>
   ); 
