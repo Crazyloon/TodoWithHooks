@@ -14,7 +14,7 @@ function TaskDetail({
     setTaskName 
   }) {
   return (
-    <div className="col-12">
+    <div className="col-12 mt-5">
       <div className="form m-auto w-50">
         <div className='form-group'>
           <input onChange={setTaskName} type='text' className='form-control' value={task.name} />

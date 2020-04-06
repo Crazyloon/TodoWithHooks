@@ -60,7 +60,7 @@ export const defaultState = {
       id:"T5",
       group:"G3",
       owner:"U2",
-      isComplete:false
+      isComplete:true
     }
   ],
   comments: [

@@ -22,13 +22,13 @@ export const store = createStore(
         case mutations.SET_TASK_COMPLETE:
           return tasks.map(task => {
             return (task.id === action.taskId) ?
-              {...task, isComplete: action.isComplete} :
+              {...task, isComplete: action.isComplete, group: action.isComplete ? 'G3' : task.groupId} :
               task;
           });
         case mutations.SET_TASK_GROUP:
           return tasks.map(task => {
             return (task.id === action.taskId) ?
-              {...task, group: action.groupId} :
+              {...task, group: action.groupId, isComplete: action.groupId === 'G3' ? true : false} :
               task;
           })
         case mutations.SET_TASK_NAME:

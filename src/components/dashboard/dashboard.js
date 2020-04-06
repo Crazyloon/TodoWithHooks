@@ -4,7 +4,7 @@ import { ConnectedTaskList } from '../tasklist/tasklist';
 
 function Dashboard({ groups }) {
   return (
-    <div classList='w-50'>
+    <div className='mt-5'>
       <h2>Dashboard</h2>
       {groups.map(group => (
         <ConnectedTaskList key={group.id} id={group.id} name={group.name} />
