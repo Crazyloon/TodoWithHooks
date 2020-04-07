@@ -5,12 +5,12 @@ import React from "react";
 function Navigation() {
   return (
     <div>
-      <nav className="navbar navbar-expand-md navbar-dark bg-dark">
+      <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
         <a className="navbar-brand" href="/">MERN Tutorial</a>
         <div className="collapse navbar-collapse">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item active">
-              <a className="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+              <a className="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
             </li>
             <li className="nav-item">
               <Link className='nav-link' to="/dashboard">
