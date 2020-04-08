@@ -1,6 +1,6 @@
 import { MongoClient } from 'mongodb';
 const url = `mongodb://localhost:27017/myorganizer`;
-const db = null;
+let db = null;
 
 export async function connectDB(){
   if(db){ 
@@ -12,4 +12,4 @@ export async function connectDB(){
   return db;
 }
 
-connectDB();
+//connectDB();
