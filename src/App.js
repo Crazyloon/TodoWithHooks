@@ -18,7 +18,7 @@ import { ConnectedLogin } from './components/login/login';
 const RouteGuard = Component => ({ match }) => {
   console.info('route guard', match);
   if (!store.getState().session.authenticated) {
-    return <Redirect to="/" />
+    return <Redirect to="/login" />
   } else {
     return <Component match={match} />
   }
@@ -30,11 +30,11 @@ function App() {
       <Router history={history}>
         <div className="App">
           <ConnectedNavigation />
-          <Route exact path="/" component={ ConnectedLogin} />
+          <Route exact path="/" component={HelloWorld} />
+          <Route exact path="/login" component={ConnectedLogin} />
           <Route exact path="/dashboard" render={RouteGuard(ConnectedDashboard)} />
           <Route exact path="/task/:id" render={RouteGuard(ConnectedTaskDetail)} />
           <header className="App-header">
-            <HelloWorld />
             <img src={logo} className="App-logo" alt="logo" />
             <p>
               Edit <code>src/App.js</code> and save to reload.
