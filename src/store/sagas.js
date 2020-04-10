@@ -41,3 +41,21 @@ export function* taskModifcationSaga(){
     });
   }
 }
+
+export function* userAuthenticationSaga(){
+  while (true) {
+    const {username, password} = yield take([
+      mutations.REQUEST_AUTHENTICATE_USER,
+      mutations.REQUEST_DEAUTHENTICATE_USER
+    ]);
+    try {
+      const { data } = axios.post(url + '/authenticate', {username,password})
+      if(!data){
+        throw new Error();
+      }
+    } catch (e) {
+      console.log('Authentication failed or was revoked.');
+      yield put(mutations.processAuthenticateUser(mutations.NOT_AUTHENTICATED))
+    }
+  }
+}

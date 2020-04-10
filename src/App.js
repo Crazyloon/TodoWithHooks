@@ -17,7 +17,7 @@ import { ConnectedLogin } from './components/login/login';
 
 const RouteGuard = Component => ({ match }) => {
   console.info('route guard', match);
-  if (!store.getState().session.authenticated) {
+  if (!store.getState().session.isAuthenticated) {
     return <Redirect to="/login" />
   } else {
     return <Component match={match} />
@@ -29,7 +29,7 @@ function App() {
     <Provider store={store}>
       <Router history={history}>
         <div className="App">
-          <ConnectedNavigation />
+          <ConnectedNavigation loggedIn={store.getState().session.isAuthenticated} />
           <Route exact path="/" component={HelloWorld} />
           <Route exact path="/login" component={ConnectedLogin} />
           <Route exact path="/dashboard" render={RouteGuard(ConnectedDashboard)} />
