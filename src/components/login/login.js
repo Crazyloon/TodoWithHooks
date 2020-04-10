@@ -1,29 +1,39 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faKey, faLockOpen } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faKey, faLockOpen, faLock } from "@fortawesome/free-solid-svg-icons";
+import * as mutations from "../../store/mutations";
 
-function Login() {
+
+function Login({authenticateUser, isAuthenticated}) {
   return (
     <div>
       <h2>Login</h2>
-      <form className="container">
+      <form onSubmit={authenticateUser} className="container">
 
         <div className="form-row row form-group">
           <div className="offset-md-2 col-md-4">
-            <label className="col-form-label text-left d-block" for="username">
+            <label className="col-form-label text-left d-block" htmlFor="username">
               <FontAwesomeIcon icon={faUser} /> Username
               </label>
             <input className="form-control" type="text" placeholder="Username" name="username" defaultValue="Dev" />
           </div>
           
           <div className="col-md-4">
-            <label className="col-form-label text-left d-block" for="password">
+            <label className="col-form-label text-left d-block" htmlFor="password">
               <FontAwesomeIcon icon={faKey} /> Password
             </label>
             <input className="form-control" type="password" placeholder="Password" name="password" />
           </div>
         </div>
+        { isAuthenticated === mutations.NOT_AUTHENTICATED ?
+          <div className="form-group">
+            <label className="font-weight-light small text-danger">
+              <FontAwesomeIcon icon={faLock} /> Invalid Username or Password combination.
+            </label>
+          </div>
+          : null
+        }
 
         <div className="form-row row">
           <div className="col-12 offset-md-2 col-md-8">
@@ -43,6 +53,17 @@ function Login() {
 
 
 
-const mapStateToProps = state => state;
+const mapStateToProps = ({session}) => ({
+  isAuthenticated: session.isAuthenticated
+});
+const mapDispatchToProps = dispatch => ({
+  authenticateUser(e){
+    e.preventDefault();
+    let username = e.target['username'].value;
+    let password = e.target['password'].value;
+    e.target['password'].value = '';
+    dispatch(mutations.requestAuthenticateUser(username, password));
+  }
+});
 
-export const ConnectedLogin = connect(mapStateToProps)(Login);
+export const ConnectedLogin = connect(mapStateToProps, mapDispatchToProps)(Login);
