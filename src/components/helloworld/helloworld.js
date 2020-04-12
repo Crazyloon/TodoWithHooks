@@ -6,7 +6,7 @@ export default function HelloWorld () {
 
   // styles
   const container = {
-    padding: '50px'
+    textAlign: 'center'
   }
 
   return (

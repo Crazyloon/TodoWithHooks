@@ -1,10 +1,20 @@
-@import './components/dashboard/dashboard.scss';
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
+@import './components/dashboard/dashboard.scss';
+@import './components/tasklist/tasklist.scss';
+
+$btn-bevel-down: 3px 2px 8px -1px RGBA(0, 0, 0, 0.6),
+                 inset 3px 3px 5px 0px RGBA(255, 255, 255, 0.4),
+                 inset -13px -14px 10px -11px RGBA(0, 0, 0, 0.4);
+$btn-bevel-up: inset 3px 3px 5px 0px RGBA(0,0,0,0.4), 
+               inset -3px -3px 5px 0px RGBA(255,255,255,0.4);
+
+body{
+  background-color: #282c34;
+  color: white;
+}
 
 .App {
   text-align: center;
-  background-color: #282c34;
-  color: white;
 }
 
 .App-logo {
@@ -40,5 +50,24 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.card-light{
+  background: #454754;
+}
+
+.bevel-md:focus{
+  box-shadow: $btn-bevel-down;
+}
+.bevel-md:active:focus{
+  padding-top: 7px;
+  padding-left: 13px;
+  padding-right: 11px;
+  padding-bottom: 5px;
+  box-shadow: $btn-bevel-up !important;
+}
+
+.bevel{
+  box-shadow: $btn-bevel-down;
 }
 

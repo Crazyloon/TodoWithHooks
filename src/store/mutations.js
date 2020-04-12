@@ -9,23 +9,29 @@ export const PROCESSING_AUTHENTICATE_USER = `PROCESSING_AUTHENTICATE_USER`;
 export const AUTHENTICATING = `AUTHENTICATING`;
 export const AUTHENTICATED = `AUTHENTICATED`;
 export const NOT_AUTHENTICATED = `NOT_AUTHENTICATED`;
+export const DEAUTHENTICATED = `DEAUTHENTICATED`;
+export const SET_STATE = `SET_STATE`;
 
-export const requestTaskCreation = (groupId) => ({
+export const requestTaskCreation = (groupId, name = "New Task") => ({
   type: REQUEST_TASK_CREATION,
-  groupId
+  groupId,
+  name
 });
 
-export const createTask = (taskId, groupId, ownerId) => ({
+export const createTask = (taskId, groupId, ownerId, isComplete, name) => ({
   type: CREATE_TASK,
   taskId,
   groupId,
-  ownerId
+  ownerId,
+  isComplete,
+  name
 });
 
 export const setTaskCompletion = (taskId, isComplete) => ({
   type: SET_TASK_COMPLETE,
   taskId,
-  isComplete
+  isComplete,
+  groupId: (isComplete) ? "G3" : "G1"
 });
 
 export const setTaskName = (taskId, name) => ({
@@ -46,12 +52,19 @@ export const requestAuthenticateUser = (username, password) => ({
   password
 });
 
-export const requestDeauthenticateUser = () => ({
-  type: REQUEST_DEAUTHENTICATE_USER
+export const requestDeauthenticateUser = (status = DEAUTHENTICATED, session = null) => ({
+  type: REQUEST_DEAUTHENTICATE_USER,
+  session,
+  isAuthenticated: status
 });
 
 export const processAuthenticateUser = (status = AUTHENTICATING, session = null) => ({
   type: PROCESSING_AUTHENTICATE_USER,
   session,
   isAuthenticated: status
-})
+});
+
+export const setState = (state = {}) => ({
+  type: SET_STATE,
+  state
+});

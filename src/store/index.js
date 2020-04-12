@@ -11,32 +11,36 @@ const sagaMiddleware = createSagaMiddleware();
 export const store = createStore(
   combineReducers({
     session(userSession = defaultState.session || {}, action) {
-      let { actionType = action.type, isAuthenticated, session } = action;
+      let { actionType = action.type, isAuthenticated } = action;
       switch(actionType){
+        case mutations.SET_STATE:
+          return {...userSession, id: action.state ? action.state.session.id : {}};
         case mutations.REQUEST_AUTHENTICATE_USER:
           return {...userSession, isAuthenticated: mutations.AUTHENTICATING};  
         case mutations.PROCESSING_AUTHENTICATE_USER:
-          return {...userSession, isAuthenticated}
+          return {...userSession, isAuthenticated};
         case mutations.REQUEST_DEAUTHENTICATE_USER:
-          return {...userSession, isAuthenticated: false};
+          return {...userSession, isAuthenticated: mutations.DEAUTHENTICATED};
           default:
             return userSession;
       }
     },
-    tasks(tasks = defaultState.tasks, action){
+    tasks(tasks = [], action){
       switch(action.type){
+        case mutations.SET_STATE:
+          return action.state ? action.state.tasks : [];
         case mutations.CREATE_TASK:
           return [...tasks, {
             id: action.taskId,
             name: "New Task",
             group: action.groupId,
             owner: action.ownerId,
-            isComplete: false
+            isComplete: action.isComplete
           }];
         case mutations.SET_TASK_COMPLETE:
           return tasks.map(task => {
             return (task.id === action.taskId) ?
-              {...task, isComplete: action.isComplete, group: action.isComplete ? 'G3' : task.groupId} :
+              {...task, isComplete: action.isComplete, group: action.isComplete ? 'G3' : action.groupId} :
               task;
           });
         case mutations.SET_TASK_GROUP:
@@ -56,13 +60,19 @@ export const store = createStore(
           return tasks;
       }
     },
-    comments(comments = defaultState.comments){
+    comments(comments = []){
       return comments;
     },
-    groups(groups = defaultState.groups){
-      return groups;
+    groups(groups = [], action){
+      switch (action.type){
+        case mutations.SET_STATE:
+          return action.state ? action.state.groups : [];
+          
+        default:
+          return groups;
+      }
     },
-    users(users = defaultState.users){
+    users(users = []){
       return  users;
     }
   }),

@@ -1,0 +1,16 @@
+.task-list{
+  .task-list-items{
+  }
+  .task-item{
+    &:nth-child(n + 2){
+      margin-top: 5px;
+    }
+    border: 1px solid white;
+    &:hover{
+      background-color: rgba(0,0,0,0.225);
+    }
+    &:active{
+      background-color: rgba(0,0,0,0.125);
+    }
+  }
+}

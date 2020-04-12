@@ -1,23 +1,25 @@
-import { take, put, select } from 'redux-saga/effects';
+import { take, put } from 'redux-saga/effects';
 import { v4 as uuid } from 'uuid';
 import axios from 'axios';
 import * as mutations from './mutations';
+import { history } from './history';
 
 const url = "http://localhost:8000";
 
 export function* taskCreationSaga(){
   while (true){
-    const {groupId} = yield take(mutations.REQUEST_TASK_CREATION);
+    const { groupId, name } = yield take(mutations.REQUEST_TASK_CREATION);
+    const isComplete = (groupId === 'G3') ? true : false;
     const ownerId = 'U1';
     const taskId = uuid();
-    yield put(mutations.createTask(taskId, groupId, ownerId));
+    yield put(mutations.createTask(taskId, groupId, ownerId, isComplete, name));
     const { res }  = yield axios.post(url + '/task/new', {
       task: {
         id: taskId,
         owner: ownerId,
         group: groupId,
-        isComplete: false,
-        name: "new task"
+        isComplete: isComplete,
+        name: name
       }
     });
     console.log('got response', res);
@@ -45,17 +47,35 @@ export function* taskModifcationSaga(){
 export function* userAuthenticationSaga(){
   while (true) {
     const {username, password} = yield take([
-      mutations.REQUEST_AUTHENTICATE_USER,
-      mutations.REQUEST_DEAUTHENTICATE_USER
+      mutations.REQUEST_AUTHENTICATE_USER
     ]);
     try {
-      const { data } = axios.post(url + '/authenticate', {username,password})
+      const { data } = yield axios.post(url + '/authenticate', {username,password})
       if(!data){
         throw new Error();
       }
+      console.log('AUTHENTICATED', data);
+
+      yield put(mutations.setState(data.state));
+      yield put(mutations.processAuthenticateUser(mutations.AUTHENTICATED));
+
+      history.push('/dashboard');
     } catch (e) {
       console.log('Authentication failed or was revoked.');
       yield put(mutations.processAuthenticateUser(mutations.NOT_AUTHENTICATED))
     }
+
+  }
+}
+
+export function* userDeauthenticationSaga(){
+  while(true){
+    yield take([
+      mutations.REQUEST_DEAUTHENTICATE_USER
+    ]);
+    yield put(mutations.setState(null));
+    yield put(mutations.requestDeauthenticateUser(mutations.DEAUTHENTICATED));
+    history.push('/');
+
   }
 }

@@ -3,21 +3,25 @@ import { connect } from 'react-redux';
 import { requestTaskCreation } from '../../store/mutations'
 import { Link } from 'react-router-dom';
 
-function TaskList({tasks, name, id, createNewTask}){
+function TaskList({ tasks, name, id, createNewTask }) {
   return (
-    <div className='mt-3'>
-      <h4>{name}</h4>
-      <div>
-        {tasks.map(task => (
-          <Link to={`/task/${task.id}`} key={task.id}>
-            <div>
-              {task.name}
+    <div className='col-md-4 task-list'>
+      <div className='card card-light p-2'>
+        <h4 className='text-center'>{name}</h4>
+        <div className='task-list-items'>
+          {tasks.map(task => (
+            <div className='task-item text-center p-1' key={task.id}>
+              <Link to={`/task/${task.id}`}>
+                <div>
+                  {task.name}
+                </div>
+              </Link>
             </div>
-          </Link>
           ))
-        }
+          }
+        </div>
+        <button className='btn btn-secondary mt-2' onClick={() => createNewTask(id)}>Add New</button>
       </div>
-      <button className='btn btn-outline-primary mt-2' onClick={() => createNewTask(id)}>Add New</button>
     </div>
   )
 }
@@ -25,7 +29,7 @@ function TaskList({tasks, name, id, createNewTask}){
 const mapStateToProps = (state, ownProps) => {
   let groupId = ownProps.id;
   return {
-    name:ownProps.name,
+    name: ownProps.name,
     id: groupId,
     tasks: state.tasks.filter(t => t.group === groupId)
   }
@@ -33,7 +37,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    createNewTask(id){
+    createNewTask(id) {
       console.log("Creating new task...", id);
       dispatch(requestTaskCreation(id));
     }

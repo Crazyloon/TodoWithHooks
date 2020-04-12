@@ -8,7 +8,7 @@ import * as mutations from "../../store/mutations";
 function Login({authenticateUser, isAuthenticated}) {
   return (
     <div>
-      <h2>Login</h2>
+      <h2 className='text-center'>Login</h2>
       <form onSubmit={authenticateUser} className="container">
 
         <div className="form-row row form-group">
@@ -23,11 +23,11 @@ function Login({authenticateUser, isAuthenticated}) {
             <label className="col-form-label text-left d-block" htmlFor="password">
               <FontAwesomeIcon icon={faKey} /> Password
             </label>
-            <input className="form-control" type="password" placeholder="Password" name="password" />
+            <input className="form-control" type="password" placeholder="Password" name="password" defaultValue="TUPLES" />
           </div>
         </div>
         { isAuthenticated === mutations.NOT_AUTHENTICATED ?
-          <div className="form-group">
+          <div className="form-group text-center">
             <label className="font-weight-light small text-danger">
               <FontAwesomeIcon icon={faLock} /> Invalid Username or Password combination.
             </label>
