@@ -1,0 +1,29 @@
+.comment-heading {
+  border-bottom: 1px solid white;
+  height: 32px;
+}
+
+.comment-heading-right {
+  display: flex;
+}
+
+.comment-body {
+  margin-top: 10px;
+  p {
+    margin-bottom: 5px;
+  }
+}
+
+.comment-action-btn {
+  visibility: hidden;
+  &:nth-child(n + 2) {
+    margin-left: 5px;
+  }
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  svg {
+    margin: auto;
+  }
+}

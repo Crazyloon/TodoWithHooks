@@ -76,6 +76,12 @@ export const defaultState = {
       id:"C1",
       task:"T1",
       content:"Great Work!"
+    },
+    {
+      owner:"U1",
+      id:"C2",
+      task:"T1",
+      content:"This is the best comment of all time. Please check out what we can do to improve the style of this section!"
     }
   ]
 }

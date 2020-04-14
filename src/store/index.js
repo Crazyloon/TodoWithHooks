@@ -14,7 +14,7 @@ export const store = createStore(
       let { actionType = action.type, isAuthenticated } = action;
       switch(actionType){
         case mutations.SET_STATE:
-          return {...userSession, id: action.state ? action.state.session.id : {}};
+          return {...userSession, id: action.state && action.state.session && action.state.session.id || {}};
         case mutations.REQUEST_AUTHENTICATE_USER:
           return {...userSession, isAuthenticated: mutations.AUTHENTICATING};  
         case mutations.PROCESSING_AUTHENTICATE_USER:
@@ -28,7 +28,7 @@ export const store = createStore(
     tasks(tasks = [], action){
       switch(action.type){
         case mutations.SET_STATE:
-          return action.state ? action.state.tasks : [];
+          return action.state && action.state.tasks || [];
         case mutations.CREATE_TASK:
           return [...tasks, {
             id: action.taskId,
@@ -60,14 +60,21 @@ export const store = createStore(
           return tasks;
       }
     },
-    comments(comments = []){
-      return comments;
+    comments(comments = [], action){
+      switch (action.type){
+        case mutations.GET_COMMENTS:
+          return action.comments || [];
+        case mutations.REQUEST_TASK_COMMENTS:
+          return comments;
+        default:
+          return comments;
+      }
     },
     groups(groups = [], action){
       switch (action.type){
         case mutations.SET_STATE:
-          return action.state ? action.state.groups : [];
-          
+          return action.state && action.state.groups || [];
+
         default:
           return groups;
       }

@@ -1,6 +1,8 @@
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
 @import './components/dashboard/dashboard.scss';
 @import './components/tasklist/tasklist.scss';
+@import './components/commentlist/commentlist.scss';
+@import './components/comment/comment.scss';
 
 $btn-bevel-down: 3px 2px 8px -1px RGBA(0, 0, 0, 0.6),
                  inset 3px 3px 5px 0px RGBA(255, 255, 255, 0.4),
@@ -71,3 +73,23 @@ body{
   box-shadow: $btn-bevel-down;
 }
 
+.btn-default {
+  color: #333;
+  background-color: #fff;
+  border-color: #ccc;
+}
+.btn-default:focus {
+  color: #333;
+  background-color: #e6e6e6;
+  border-color: #8c8c8c;
+}
+.btn-default:hover {
+  color: #333;
+  background-color: #e6e6e6;
+  border-color: #adadad;
+}
+.btn-default:active {
+  color: #333;
+  background-color: #e6e6e6;
+  border-color: #adadad;
+}

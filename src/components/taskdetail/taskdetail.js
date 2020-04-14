@@ -1,7 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
+import { connect, useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as mutations from '../../store/mutations';
+import { CommentsList } from '../commentlist/commentlist';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft, faRedoAlt, faCheck } from '@fortawesome/free-solid-svg-icons';
+
 
 function TaskDetail({
   id,
@@ -13,6 +17,12 @@ function TaskDetail({
   setTaskGroup,
   setTaskName
 }) {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(mutations.requestTaskComments(id));
+  }, []);
+  
   return (
     <div className="col-12">
       <div className="m-auto w-50">
@@ -28,12 +38,18 @@ function TaskDetail({
             </select>
           </div>
           <div className='form-group'>
-            <button onClick={() => setTaskCompletion(id, !isComplete)} className='btn btn-primary'>{isComplete ? 'Reopen' : 'Complete'}</button>
+            <button onClick={() => setTaskCompletion(id, !isComplete)} className='btn btn-primary'>
+              {isComplete ? <span><FontAwesomeIcon icon={faRedoAlt} /> Reopen</span> : <span><FontAwesomeIcon icon={faCheck} /> Complete</span>}
+            </button>
           </div>
+        </div>
+        <div>
+          <CommentsList comments={comments} />
         </div>
         <div className='mt-5'>
           <Link to="/dashboard">
-            <button className='btn btn-secondary'>Back to Dashboard</button>
+            <button className='btn btn-secondary'>
+            <FontAwesomeIcon icon={faChevronLeft} /> Back to Dashboard</button>
           </Link>
         </div>
       </div>
@@ -45,8 +61,9 @@ const mapStateToProps = (state, ownProps) => {
   let id = ownProps.match.params.id;
   let task = state.tasks.find(task => task.id === id);
   let groups = state.groups;
+  let comments = state.comments.filter(comment => comment.task === id);
 
-  return { id, task, groups, isComplete: task.isComplete }
+  return { id, task, groups, comments, isComplete: task.isComplete }
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {

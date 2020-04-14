@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { requestTaskCreation } from '../../store/mutations'
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 function TaskList({ tasks, name, id, createNewTask }) {
   return (
@@ -20,7 +22,7 @@ function TaskList({ tasks, name, id, createNewTask }) {
           ))
           }
         </div>
-        <button className='btn btn-secondary mt-2' onClick={() => createNewTask(id)}>Add New</button>
+        <button className='btn btn-secondary mt-2' onClick={() => createNewTask(id)}><FontAwesomeIcon icon={faPlus} /> Add New</button>
       </div>
     </div>
   )

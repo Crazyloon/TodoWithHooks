@@ -1,0 +1,21 @@
+.comment-card {
+  padding: 5px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: rgba(0, 0, 0, 0.225);
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  &:nth-child(n + 2) {
+    margin-top: 5px;
+  }
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.125);
+    .comment-action-btn {
+      visibility: visible;
+    }
+  }
+}

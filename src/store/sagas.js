@@ -49,6 +49,7 @@ export function* userAuthenticationSaga(){
     const {username, password} = yield take([
       mutations.REQUEST_AUTHENTICATE_USER
     ]);
+
     try {
       const { data } = yield axios.post(url + '/authenticate', {username,password})
       if(!data){
@@ -77,5 +78,21 @@ export function* userDeauthenticationSaga(){
     yield put(mutations.requestDeauthenticateUser(mutations.DEAUTHENTICATED));
     history.push('/');
 
+  }
+}
+
+export function* commentsRetrievalSaga(){
+  while (true){
+    const { taskId } = yield take(mutations.REQUEST_TASK_COMMENTS);
+
+    try {
+      const { data } = yield axios.get(url + `/comments/${taskId}`);
+      const comments = data.comments;
+
+      yield put(mutations.setComments(data.comments));
+    } catch (e) {
+      console.log('[comments]', e)
+      // yield put()
+    }
   }
 }

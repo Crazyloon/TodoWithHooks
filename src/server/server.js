@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import { connectDB } from './connect-db';
 import './initialize-db';
 import { authenticationRoute } from './authenticate';
+import { commentsRoute } from './comments';
 
 let port = 8000;
 let app = express();
@@ -17,6 +18,7 @@ app.use(
 );
 
 authenticationRoute(app);
+commentsRoute(app);
 
 export const addNewTask = async task => {
   let db = await connectDB();

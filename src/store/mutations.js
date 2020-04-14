@@ -11,6 +11,8 @@ export const AUTHENTICATED = `AUTHENTICATED`;
 export const NOT_AUTHENTICATED = `NOT_AUTHENTICATED`;
 export const DEAUTHENTICATED = `DEAUTHENTICATED`;
 export const SET_STATE = `SET_STATE`;
+export const REQUEST_TASK_COMMENTS = `REQUEST_TASK_COMMENTS`;
+export const GET_COMMENTS = `GET_COMMENTS`;
 
 export const requestTaskCreation = (groupId, name = "New Task") => ({
   type: REQUEST_TASK_CREATION,
@@ -68,3 +70,13 @@ export const setState = (state = {}) => ({
   type: SET_STATE,
   state
 });
+
+export const setComments = (comments = {}) => ({
+  type: GET_COMMENTS,
+  comments
+});
+
+export const requestTaskComments = (taskId) => ({
+  type: REQUEST_TASK_COMMENTS,
+  taskId
+})

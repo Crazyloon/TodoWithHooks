@@ -1,7 +1,7 @@
 import './App.scss';
 import React from 'react';
 import { Provider } from 'react-redux';
-import { Router, Route } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 import { store } from './store'
 import { history } from "./store/history";
 import { Redirect } from 'react-router';
@@ -14,6 +14,7 @@ import { ConnectedNavigation } from "./components/navigation/navigation";
 import { ConnectedTaskDetail } from './components/taskdetail/taskdetail';
 import { ConnectedDashboard } from './components/dashboard/dashboard';
 import { ConnectedLogin } from './components/login/login';
+import NotFoundPage from './components/notfoundpage/notfoundpage';
 
 
 
@@ -33,10 +34,13 @@ function App() {
         <div>
           <ConnectedNavigation isAuthenticated={store.getState().session.isAuthenticated} />
           <div className='container mt-5'>
-            <Route exact path="/" component={HelloWorld} />
-            <Route exact path="/login" component={ConnectedLogin} />
-            <Route exact path="/dashboard" render={RouteGuard(ConnectedDashboard)} />
-            <Route exact path="/task/:id" render={RouteGuard(ConnectedTaskDetail)} />
+            <Switch>
+              <Route exact path="/" component={HelloWorld} />
+              <Route exact path="/login" component={ConnectedLogin} />
+              <Route exact path="/dashboard" render={RouteGuard(ConnectedDashboard)} />
+              <Route exact path="/task/:id" render={RouteGuard(ConnectedTaskDetail)} />
+              <Route exact component={NotFoundPage} />
+            </Switch>
             <div className="App">
               <header className="App-header">
                 <img src={logo} className="App-logo" alt="logo" />
