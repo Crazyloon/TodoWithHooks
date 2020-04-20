@@ -36,7 +36,7 @@
     "initialize": "babel-node src/server/initialize-db",
     "server": "babel-node src/server/server",
     "server-test": "babel-node src/server/server.spec",
-    "start-dev": "concurrently \"npm run server\" \"npm start\""
+    "start-dev": "concurrently \"npm run server-dev\" \"npm start\""
   },
   "eslintConfig": {
     "extends": "react-app"

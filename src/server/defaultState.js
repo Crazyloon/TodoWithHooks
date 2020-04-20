@@ -1,4 +1,5 @@
 import md5 from 'md5';
+import * as constants from '../store/constants';
 
 export const defaultState = {
   session: {
@@ -19,17 +20,17 @@ export const defaultState = {
   groups: [
     {
       name: "To Do",
-      id: "G1",
+      id: constants.GROUP_ID.TODO,
       owner:"U1"
     },
     {
       name: "Doing",
-      id: "G2",
+      id: constants.GROUP_ID.DOING,
       owner:"U1"
     },
     {
       name: "Done",
-      id: "G3",
+      id: constants.GROUP_ID.DONE,
       owner:"U1"
     }
   ], 
@@ -37,35 +38,35 @@ export const defaultState = {
     {
       name:"Refactor tests",
       id:"T1",
-      group:"G1",
+      group:constants.GROUP_ID.TODO,
       owner:"U1",
       isComplete:false
     },
     {
       name:"Meet with CTO",
       id:"T2",
-      group:"G3",
+      group:constants.GROUP_ID.DONE,
       owner:"U1",
       isComplete:true
     },
     {
       name:"Compile ES6",
       id:"T3",
-      group:"G2",
+      group:constants.GROUP_ID.DOING,
       owner:"U2",
       isComplete:false
     },
     {
       name:"Update component snapshots",
       id:"T4",
-      group:"G2",
+      group:constants.GROUP_ID.DOING,
       owner:"U2",
       isComplete:false
     },
     {
       name:"Create our first component",
       id:"T5",
-      group:"G3",
+      group:constants.GROUP_ID.DONE,
       owner:"U2",
       isComplete:true
     }

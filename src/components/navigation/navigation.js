@@ -29,6 +29,11 @@ function Navigation({isAuthenticated, logOut}) {
                 Dashboard
               </Link>
             </li>
+            <li className="nav-item">
+              <Link className='nav-link' to='/test'>
+                Component Tests
+              </Link>
+            </li>
 
           </ul>
           <form className="form-inline my-2 my-md-0">

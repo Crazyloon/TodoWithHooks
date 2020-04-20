@@ -8,12 +8,10 @@ const url = "http://localhost:8000";
 
 export function* taskCreationSaga(){
   while (true){
-    const { groupId, name } = yield take(mutations.REQUEST_TASK_CREATION);
+    const { groupId, name, ownerId } = yield take(mutations.REQUEST_TASK_CREATION);
     const isComplete = (groupId === 'G3') ? true : false;
-    const ownerId = 'U1';
     const taskId = uuid();
-    yield put(mutations.createTask(taskId, groupId, ownerId, isComplete, name));
-    const { res }  = yield axios.post(url + '/task/new', {
+    const res  = yield axios.post(url + '/task/new', {
       task: {
         id: taskId,
         owner: ownerId,
@@ -22,7 +20,11 @@ export function* taskCreationSaga(){
         name: name
       }
     });
-    console.log('got response', res);
+    if (res && res.status === 200) {
+      yield put(mutations.createTask(taskId, groupId, ownerId, isComplete, name));
+    } else {
+      // TODO put an error message
+    }
   }
 }
 
@@ -87,12 +89,45 @@ export function* commentsRetrievalSaga(){
 
     try {
       const { data } = yield axios.get(url + `/comments/${taskId}`);
-      const comments = data.comments;
-
       yield put(mutations.setComments(data.comments));
     } catch (e) {
       console.log('[comments]', e)
       // yield put()
+    }
+  }
+}
+
+export function* commentCreationSaga() {
+  while (true){
+    const { comment } = yield take(mutations.REQUEST_COMMENT_CREATION);
+
+    try {
+      const res = yield axios.post(url + '/comments/new', { comment });
+      if (res.status === 200){
+        yield put(mutations.saveNewComment(comment))
+      } else {
+        // TODO handle failed response
+      }
+    } catch (e) {
+      // TODO: Handle errors
+      console.log('[Comment Creation] ERROR:', e);
+    }
+  }
+}
+
+export function* commentUpdateSaga() {
+  while (true) {
+    const { comment } = yield take(mutations.REQUEST_COMMENT_UPDATE);
+
+    try {
+      const res = yield axios.put(url + `/comments/${comment.id}`, { comment });
+      if (res.status === 200) {
+        yield put(mutations.saveEditedComment(comment));
+      } else {
+        // TODO handle failed response
+      }
+    } catch (e) {
+      console.log('[Comment Update] Error', e);
     }
   }
 }

@@ -16,6 +16,7 @@ import { ConnectedDashboard } from './components/dashboard/dashboard';
 import { ConnectedLogin } from './components/login/login';
 import NotFoundPage from './components/notfoundpage/notfoundpage';
 
+import { TestingPage } from './components/testingpage/testingpage';
 
 
 const RouteGuard = Component => ({ match }) => {
@@ -39,6 +40,7 @@ function App() {
               <Route exact path="/login" component={ConnectedLogin} />
               <Route exact path="/dashboard" render={RouteGuard(ConnectedDashboard)} />
               <Route exact path="/task/:id" render={RouteGuard(ConnectedTaskDetail)} />
+              <Route exact path="/test" render={TestingPage} />
               <Route exact component={NotFoundPage} />
             </Switch>
             <div className="App">

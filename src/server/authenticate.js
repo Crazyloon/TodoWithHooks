@@ -16,7 +16,8 @@ async function assembleUserState(user){
     groups,
     session: {
       isAuthenticated: AUTHENTICATED,
-      id: user.id
+      id: user.id,
+      userName: user.name
     }
   }
 }

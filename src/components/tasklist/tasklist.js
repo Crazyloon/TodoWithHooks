@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
-function TaskList({ tasks, name, id, createNewTask }) {
+function TaskList({ tasks, name, id, createNewTask, loggedInUser }) {
   return (
     <div className='col-md-4 task-list'>
       <div className='card card-light p-2'>
@@ -22,8 +22,8 @@ function TaskList({ tasks, name, id, createNewTask }) {
           ))
           }
         </div>
-        <button className='btn btn-secondary mt-2' onClick={() => createNewTask(id)}><FontAwesomeIcon icon={faPlus} /> Add New</button>
       </div>
+      <button className='btn btn-block btn-secondary mt-2' onClick={() => createNewTask(id)}><FontAwesomeIcon icon={faPlus} /> Add New</button>
     </div>
   )
 }
@@ -41,7 +41,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     createNewTask(id) {
       console.log("Creating new task...", id);
-      dispatch(requestTaskCreation(id));
+      dispatch(requestTaskCreation(id, ownProps.loggedInUser)); // TODO: UPDATE U1 to an acutal user!
     }
   }
 }

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { connect, useSelector, useDispatch } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as mutations from '../../store/mutations';
 import { CommentsList } from '../commentlist/commentlist';
@@ -21,7 +21,7 @@ function TaskDetail({
 
   useEffect(() => {
     dispatch(mutations.requestTaskComments(id));
-  }, []);
+  }, [dispatch, id]);
   
   return (
     <div className="col-12">
@@ -39,12 +39,12 @@ function TaskDetail({
           </div>
           <div className='form-group'>
             <button onClick={() => setTaskCompletion(id, !isComplete)} className='btn btn-primary'>
-              {isComplete ? <span><FontAwesomeIcon icon={faRedoAlt} /> Reopen</span> : <span><FontAwesomeIcon icon={faCheck} /> Complete</span>}
+              {isComplete ? <span><FontAwesomeIcon icon={faRedoAlt} /> Set Task Open</span> : <span><FontAwesomeIcon icon={faCheck} /> Set Task Complete</span>}
             </button>
           </div>
         </div>
         <div>
-          <CommentsList comments={comments} />
+          <CommentsList comments={comments} taskId={task.id} />
         </div>
         <div className='mt-5'>
           <Link to="/dashboard">
@@ -63,7 +63,7 @@ const mapStateToProps = (state, ownProps) => {
   let groups = state.groups;
   let comments = state.comments.filter(comment => comment.task === id);
 
-  return { id, task, groups, comments, isComplete: task.isComplete }
+  return { id, task, groups, comments, isComplete: task && task.isComplete }
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
