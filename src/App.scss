@@ -24,10 +24,21 @@ body{
   pointer-events: none;
 }
 
+.nav-logo {
+  pointer-events: none;
+  width: 32px;
+  height: 32px;
+}
+
+.nav-button {
+  align-self: center;
+}
+
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
+  .App-logo, .nav-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+
 }
 
 .App-header {
@@ -92,4 +103,8 @@ body{
   color: #333;
   background-color: #e6e6e6;
   border-color: #adadad;
+}
+
+.test-block {
+  margin-bottom: 40px;
 }

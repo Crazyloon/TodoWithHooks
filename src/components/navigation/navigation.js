@@ -2,54 +2,50 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLock } from "@fortawesome/free-solid-svg-icons";
+import { faLock, faHamburger } from "@fortawesome/free-solid-svg-icons";
 import * as mutations from '../../store/mutations';
+import { Nav, Navbar, NavDropdown } from "react-bootstrap";
+import logo from '../../logo.svg';
 
 function Navigation({isAuthenticated, logOut}) {
   return (
     <div>
-      <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
-        <a className="navbar-brand" href="/">MERN Tutorial</a>
-        <div className="collapse navbar-collapse">
-          <ul className="navbar-nav mr-auto">
-            { !isAuthenticated ?  
-              <li className="nav-item">
+      <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">
+          <Navbar.Brand href="/">
+            <img src={logo} alt="spinner" className="nav-logo d-inline-block align-top" />
+            Task Master
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav as='ul' className="mr-auto">
+            { !isAuthenticated  ?
+              <Nav.Item as='li'>
                 <Link className='nav-link' to="/login">
                   Login
                 </Link>
-              </li> :
-              <li className="nav-item">
-                <button className="btn btn-outline-primary" onClick={logOut}>
+              </Nav.Item> :
+              <Nav.Item as='li' className='nav-button'>
+                <button className="btn btn-outline-danger" onClick={logOut}>
                   <FontAwesomeIcon icon={faLock} />  Log Out
                 </button>
-              </li>
+              </Nav.Item>
             }
-            <li className="nav-item">
-              <Link className='nav-link' to="/dashboard">
+            <Nav.Item as='li'>
+            <Link className='nav-link' to="/dashboard">
                 Dashboard
               </Link>
-            </li>
-            <li className="nav-item">
-              <Link className='nav-link' to='/test'>
+            </Nav.Item>
+            <Nav.Item as='li'>
+            <Link className='nav-link' to='/test'>
                 Component Tests
               </Link>
-            </li>
-
-          </ul>
-          <form className="form-inline my-2 my-md-0">
-            <input className="form-control" type="text" placeholder="Search" />
-          </form>
-        </div>
-      </nav>
+            </Nav.Item>
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
     </div>
   )
 }
-
-// const mapStateToProps = (state) => {
-//   return {
-//     isAuthenticated: state.session.isAuthenticated === AUTHENTICATED
-//   }
-// }
 
 const mapStateToProps = ({session}) => ({
   isAuthenticated: session.isAuthenticated === mutations.AUTHENTICATED

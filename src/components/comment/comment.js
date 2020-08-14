@@ -41,7 +41,7 @@ export const Comment = ({ comment, mode, handleSetCommentData }) => {
         <div className='comment-heading w-100 d-flex justify-content-between'>
           <div className='comment-heading-left'>
             <label className='small mb-0'>
-              <FontAwesomeIcon icon={faUserAlt} /> {comment.commenter}
+              <FontAwesomeIcon icon={faUserAlt} /> { comment.commenter }
             </label>
             <label className='small mb-0 ml-2'>
               <FontAwesomeIcon icon={faClock} /> {moment(comment.date).format('D/MMM/YY h:MM A')}

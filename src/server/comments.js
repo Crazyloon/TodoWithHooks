@@ -85,7 +85,7 @@ export const commentsRoutes = app => {
 
     try {
       const result = await updateComment(comment);
-      if (matchedCount && modifiedCount) {
+      if (result.matchedCount && result.modifiedCount) {
         res.status(200).send();
       } else {
         res.sendStatus(500);
@@ -115,7 +115,9 @@ export const commentsRoutes = app => {
 
     try {
       const result = await deleteComment(id);
-      res.sendStatus(200);
+      if (result){
+        res.sendStatus(200);
+      }
     } catch (e) {
       res.sendStatus(500);      
     }

@@ -10,7 +10,8 @@ import * as constants from '../../store/constants';
 export const CommentsList = ({ comments, taskId }) => {
 
   let [newComment, setNewCommentData] = useState({});
-  let currentUser = useSelector(state => state.session.id);
+  let commentOwner = useSelector(state => state.session.id);
+  let currentUser = useSelector(state => state.session.userName);
 
   return (
     <div className='m-auto'>
@@ -42,7 +43,8 @@ export const CommentsList = ({ comments, taskId }) => {
         onClick={(e) => setNewCommentData({
           id: uuid(),
           task: taskId,
-          owner: currentUser,
+          owner: commentOwner,
+          commenter: currentUser,
           content: '',
           date: new Date()
         })}>

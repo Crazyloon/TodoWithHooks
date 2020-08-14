@@ -24,7 +24,7 @@ export const store = createStore(
           return {
             ...userSession, 
             id: (action.state && action.state.session && action.state.session.id) || '',
-            userName: (action.state && action.state.session && action.state.session.userId) || ''
+            userName: (action.state && action.state.session && action.state.session.userName) || ''
         };
         case mutations.REQUEST_AUTHENTICATE_USER:
           return {...userSession, isAuthenticated: mutations.AUTHENTICATING};  
